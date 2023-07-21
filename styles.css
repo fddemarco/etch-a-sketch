@@ -7,14 +7,13 @@ body {
 }
 .canvas {
   background-color: white;
-  width: calc(16 * 8px);
-  height: calc(16 * 8px);
+  width: calc(16 * 16px);
+  height: calc(16 * 16px);
   display: flex;
   flex-wrap: wrap;
 }
 
 .canvas-pixel{
-  width: 8px;
-  height: 8px;
-  background-color: red;
+  width: 16px;
+  height: 16px;
 }
