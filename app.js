@@ -1,6 +1,24 @@
+const COLORS = [
+  '#FF6F61',
+  '#87CEEB',
+  '#98FB98',
+  '#E6E6FA',
+  '#DAA520',
+  '#DA70D6',
+  '#008080',
+  '#FFDAB9',
+  '#6A5ACD',
+  '#FF007F'
+];
+
+function getRandomColor(){
+  const index = Math.floor(Math.random()*10);
+  return COLORS[index];
+}
+
 function fillPixel(event) {
   const pixel = event.target;
-  pixel.style.background = 'black';
+  pixel.style.background = getRandomColor();
 }
 
 function changeCanvasResolution(event){
