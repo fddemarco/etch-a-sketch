@@ -11,6 +11,25 @@ const COLORS = [
   '#FF007F'
 ];
 
+const SHADES = grayShades(10);
+
+function grayShades(numberOfSteps){
+  let shades = [];
+  let step = 250 / numberOfSteps;
+  for (let i = numberOfSteps; i >= 0 ; i--){
+    const j = i * step;
+    shades.push(`rgb(${j}, ${j}, ${j})`);
+  }
+  return shades;
+}
+
+function nextShade(shade){
+  const index = SHADES.indexOf(shade);
+  if (index == SHADES.length - 1) return shade;
+
+  return SHADES[index + 1];
+}
+
 function getRandomColor(){
   const index = Math.floor(Math.random()*10);
   return COLORS[index];
@@ -19,6 +38,12 @@ function getRandomColor(){
 function fillPixel(event) {
   const pixel = event.target;
   pixel.style.background = getRandomColor();
+}
+
+function progressiveDarkening(event){
+  const pixel = event.target;
+  const currentShade = pixel.style.background;
+  pixel.style.background = nextShade(currentShade);
 }
 
 function changeCanvasResolution(event){
@@ -45,9 +70,10 @@ function drawCanvas(canvas, resolution){
 
     canvasPixel.style.width = pixelLength;
     canvasPixel.style.height = pixelLength;
+    canvasPixel.style.background = SHADES[0];
 
     canvas.appendChild(canvasPixel);
-    canvasPixel.addEventListener('mouseover', fillPixel)
+    canvasPixel.addEventListener('mouseover', progressiveDarkening)
   }
 }
 
