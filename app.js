@@ -4,7 +4,8 @@ function fillPixel(event) {
 }
 
 function changeCanvasResolution(event){
-  const resolution = +prompt('Please input canvas width resolution');
+  const userInput = +prompt('Please input canvas width resolution');
+  const resolution = Math.min(100, userInput);
   const canvas = document.querySelector('.canvas');
   cleanCanvas(canvas);
   drawCanvas(canvas, resolution);
