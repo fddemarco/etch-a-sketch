@@ -3,9 +3,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: gainsboro;
 }
 .canvas {
-  background-color: gray;
+  background-color: white;
   width: calc(16*8px);
   height: calc(16*8px);
   display: flex;
@@ -13,7 +14,6 @@ body {
 }
 
 .canvas-pixel{
-  background-color: black;
-  width: 8px;
-  height: 8px;
+  flex: 1;
+  background-color: red;
 }
