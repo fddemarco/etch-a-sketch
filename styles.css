@@ -1,0 +1,16 @@
+body {
+  padding: 100px;
+}
+.canvas {
+  background-color: gray;
+  width: calc(16*8px);
+  height: calc(16*8px);
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.canvas-pixel{
+  background-color: black;
+  width: 8px;
+  height: 8px;
+}
