@@ -30,14 +30,16 @@ function nextShade(shade){
   return SHADES[index + 1];
 }
 
-function getRandomColor(){
+function getRandomColor(event){
   const index = Math.floor(Math.random()*10);
-  return COLORS[index];
+  const pixel = event.target;
+  pixel.style.background =  COLORS[index];
+
 }
 
 function fillPixel(event) {
   const pixel = event.target;
-  pixel.style.background = getRandomColor();
+  pixel.style.background = 'black';
 }
 
 function progressiveDarkening(event){
@@ -46,9 +48,14 @@ function progressiveDarkening(event){
   pixel.style.background = nextShade(currentShade);
 }
 
-function changeCanvasResolution(event){
-  const userInput = +prompt('Please input canvas width resolution');
-  const resolution = Math.min(100, userInput);
+function redrawCanvas(event){
+  const classes = Array.from(event.target.classList);
+  let resolution = 16;
+  if (classes.includes('canvas-resolution-button')){
+    const userInput = +prompt('Please input canvas width resolution');
+    resolution = Math.min(100, userInput);
+  }
+
   const canvas = document.querySelector('.canvas');
   cleanCanvas(canvas);
   drawCanvas(canvas, resolution);
@@ -73,7 +80,19 @@ function drawCanvas(canvas, resolution){
     canvasPixel.style.background = SHADES[0];
 
     canvas.appendChild(canvasPixel);
-    canvasPixel.addEventListener('mouseover', progressiveDarkening)
+
+    const colorPalette = document.querySelector('#color-palette').value;
+    let callback = undefined;
+    if (colorPalette == 'classic') {
+      callback = fillPixel;
+    }
+    else if (colorPalette == 'random') {
+      callback = getRandomColor;
+    }
+    else if (colorPalette == 'darkening'){
+      callback = progressiveDarkening;
+    }
+    canvasPixel.addEventListener('mouseover', callback)
   }
 }
 
@@ -81,4 +100,7 @@ const canvas = document.querySelector('.canvas');
 drawCanvas(canvas, 16);
 
 const canvasResolutionButton = document.querySelector('.canvas-resolution-button');
-canvasResolutionButton.addEventListener('click', changeCanvasResolution);
+canvasResolutionButton.addEventListener('click', redrawCanvas);
+
+const colorPalette = document.querySelector('#color-palette');
+colorPalette.addEventListener('change', redrawCanvas);

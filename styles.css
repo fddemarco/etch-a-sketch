@@ -19,3 +19,9 @@ body {
   justify-content: space-evenly;
   flex: 1;
 }
+
+.configuration-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
